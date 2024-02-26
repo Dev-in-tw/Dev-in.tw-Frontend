@@ -1,3 +1,4 @@
 {
-  "cSpell.words": ["nextui", "tailwindcss"]
+  "cSpell.words": ["nextui", "tailwindcss"],
+  "deepscan.enable": true
 }
