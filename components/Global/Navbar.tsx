@@ -3,6 +3,7 @@
 //next.js
 import Image from "next/image";
 import NextLink from "next/link";
+import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 
 // component
@@ -22,10 +23,11 @@ import {
 } from "@nextui-org/navbar";
 
 // module
-import { signIn } from "next-auth/react";
 
 
 export default function NavbarC() {
+  const router = useRouter();
+
   return (
     <NextUINavbar position="sticky">
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
@@ -53,7 +55,7 @@ export default function NavbarC() {
           <Button
             className="text-[1rem] rounded-full dark:text-[#eeeeee] dark:bg-[#292a2d] text-[#333333] bg-[#dddddd]"
             variant="flat"
-            onClick={() => signIn("github")}
+            onClick={() => router.replace("/login")}
           >
             登入
           </Button>
@@ -73,7 +75,7 @@ export default function NavbarC() {
           <Button
             className="text-[1rem] rounded-full dark:text-[#eeeeee] dark:bg-[#292a2d] text-[#333333] bg-[#dddddd]"
             variant="flat"
-            onClick={() => signIn("github")}
+            onClick={() => router.replace("/login")}
           >
             登入
           </Button>
