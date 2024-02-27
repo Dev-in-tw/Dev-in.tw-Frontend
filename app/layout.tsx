@@ -3,7 +3,7 @@ import { Providers } from "@/app/provider";
 import NavbarC from "@/components/Global/Navbar";
 
 // style
-import "@/style/globals.scss";
+import "@/styles/globals.scss";
 
 // type
 import type { Metadata, Viewport } from "next";
