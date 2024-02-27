@@ -20,7 +20,7 @@ export default function RootLayout({
         <Providers>
           <div className="flex flex-col h-[100dvh]">
             <NavbarC />
-            <div className="h-[calc(100%-5rem)] overflow-y-auto items-center justify-center text-center">
+            <div className="h-[calc(100%-4rem)] overflow-y-auto items-center justify-center text-center">
               <div className="max-w-[1024px] h-full mx-auto px-6">
                 {children}
               </div>

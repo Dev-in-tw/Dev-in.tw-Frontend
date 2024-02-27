@@ -49,7 +49,8 @@ export default function NavbarC() {
           <Link isExternal href="https://github.com/Dev-in-tw" aria-label="Github" target="_blank" className="text-2xl">
             <FaGithub className="text-[#eeeeee]" />
           </Link>
-          <ThemeSwitch />
+          {/* <ThemeSwitch /> */}
+          {/* No need to show the theme switcher in the navbar in first release. */}
         </NavbarItem>
         <NavbarItem className="hidden md:flex">
           <Button
