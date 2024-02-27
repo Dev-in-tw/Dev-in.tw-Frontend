@@ -20,7 +20,7 @@ export default function RootLayout({
         <Providers>
           <div className="flex flex-col h-full">
             <NavbarC />
-            <div className="h-[calc(100%-5rem)] overflow-y-scroll">
+            <div className="h-[calc(100%-5rem)] overflow-y-auto">
               {children}
             </div>
           </div>
