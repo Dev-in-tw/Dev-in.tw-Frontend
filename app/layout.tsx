@@ -18,10 +18,12 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Providers>
-          <div className="flex flex-col h-full">
+          <div className="flex flex-col h-[100dvh]">
             <NavbarC />
-            <div className="h-[calc(100%-5rem)] overflow-y-auto">
-              {children}
+            <div className="h-[calc(100%-5rem)] overflow-y-auto items-center justify-center text-center">
+              <div className="max-w-[1024px]">
+                {children}
+              </div>
             </div>
           </div>
         </Providers>
