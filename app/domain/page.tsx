@@ -1,7 +1,8 @@
 export default function Domain() {
+  // TODO: add domain page content
   return (
     <div>
-      <h1>Page</h1>
+      <></>
     </div>
   )
 }
