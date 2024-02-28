@@ -3,9 +3,13 @@ import { useSearchParams } from "next/navigation";
 import { FaCircleCheck } from "react-icons/fa6";
 import { IconContext } from "react-icons";
 
-function ResultCard() {
+type Props = {
+  searchDomain?: string;
+};
+
+function ResultCard({ searchDomain }: Props) {
   const searchParams = useSearchParams();
-  const domain = searchParams.get("sub");
+  const domain = searchDomain ? searchDomain : searchParams.get("sub");
   if (domain) {
     return (
       <div className="w-full border border-neutral-600 rounded-lg p-3 flex  items-center justify-between">
