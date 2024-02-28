@@ -1,12 +1,19 @@
 // Components
 import { Input } from "@nextui-org/react";
+import { useRouter } from "next/navigation";
 
 function SearchInput() {
+  const router = useRouter();
   return (
     <Input
       type="url"
       placeholder="lazco"
       labelPlacement="outside"
+      onKeyUp={(e) => {
+        if (e.key === "Enter") {
+          router.push(`/find?sub=${e.currentTarget.value}`);
+        }
+      }}
       startContent={
         <div className="pointer-events-none flex items-center">
           <span className="text-default-400 text-small">https://</span>
