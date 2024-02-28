@@ -8,7 +8,6 @@ import "@/styles/globals.scss";
 // type
 import type { Metadata, Viewport } from "next";
 
-
 export default function RootLayout({
   children,
 }: Readonly<{

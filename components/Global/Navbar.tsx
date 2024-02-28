@@ -24,7 +24,6 @@ import {
 
 // module
 
-
 export default function NavbarC() {
   const router = useRouter();
 
@@ -42,11 +41,23 @@ export default function NavbarC() {
         justify="end"
       >
         <NavbarItem className="hidden sm:flex gap-3">
-          <Link isExternal href="https://discord.gg/ZvwTZqXjYf" aria-label="Discord" target="_blank" className="text-2xl">
+          <Link
+            isExternal
+            href="https://discord.gg/ZvwTZqXjYf"
+            aria-label="Discord"
+            target="_blank"
+            className="text-2xl"
+          >
             <FaDiscord className="text-[#eeeeee] scale-y-125 scale-x-[1.175] mr-1" />
             {/* Discord's hight is not enough, so scale up and add margin right. */}
           </Link>
-          <Link isExternal href="https://github.com/Dev-in-tw" aria-label="Github" target="_blank" className="text-2xl">
+          <Link
+            isExternal
+            href="https://github.com/Dev-in-tw"
+            aria-label="Github"
+            target="_blank"
+            className="text-2xl"
+          >
             <FaGithub className="text-[#eeeeee]" />
           </Link>
           {/* <ThemeSwitch /> */}
@@ -64,11 +75,23 @@ export default function NavbarC() {
       </NavbarContent>
 
       <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
-        <Link isExternal href="https://discord.gg/ZvwTZqXjYf" aria-label="Discord" target="_blank" className="text-2xl">
+        <Link
+          isExternal
+          href="https://discord.gg/ZvwTZqXjYf"
+          aria-label="Discord"
+          target="_blank"
+          className="text-2xl"
+        >
           <FaDiscord className="text-[#eeeeee] scale-y-125 scale-x-[1.175] mr-1" />
           {/* Discord's hight is not enough, so scale up and add margin right. */}
         </Link>
-        <Link isExternal href="https://github.com/Dev-in-tw" aria-label="Github" target="_blank" className="text-2xl">
+        <Link
+          isExternal
+          href="https://github.com/Dev-in-tw"
+          aria-label="Github"
+          target="_blank"
+          className="text-2xl"
+        >
           <FaGithub className="text-[#e1e1e1]" />
         </Link>
         <ThemeSwitch />
@@ -84,4 +107,4 @@ export default function NavbarC() {
       </NavbarContent>
     </NextUINavbar>
   );
-};
+}

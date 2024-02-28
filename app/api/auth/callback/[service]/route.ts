@@ -6,7 +6,7 @@ import apiClient from "@/api";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { service: string } }
+  { params }: { params: { service: string } },
 ) {
   if (params.service === "github") {
     const searchParams = request.nextUrl.searchParams;
@@ -14,13 +14,12 @@ export async function GET(
     let data;
 
     if (!code) {
-      return Response.json({ error: "Missing request params" })
+      return Response.json({ error: "Missing request params" });
     }
 
-    await apiClient.auth.github.post(code)
-      .then((res) => {
-        data = res.account_data;
-      })
+    await apiClient.auth.github.post(code).then((res) => {
+      data = res.account_data;
+    });
 
     return Response.json(data);
   }

@@ -47,4 +47,4 @@ export default function Delete(props: any) {
       />
     </svg>
   );
-};
+}

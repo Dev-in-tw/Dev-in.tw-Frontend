@@ -1,8 +1,7 @@
-import axios, { AxiosInstance } from 'axios';
+import axios, { AxiosInstance } from "axios";
 
 // auth
-import { AuthApi } from '@/api/auth';
-
+import { AuthApi } from "@/api/auth";
 
 class ApiClient {
   private instance: AxiosInstance;
@@ -15,7 +14,6 @@ class ApiClient {
     this.auth = new AuthApi(this.instance);
   }
 }
-
 
 const apiClient = new ApiClient(process.env.NEXT_PUBLIC_API_URL as string);
 export default apiClient;

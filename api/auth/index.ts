@@ -1,5 +1,5 @@
-import { AxiosInstance } from 'axios';
-import { GithubAuthApi } from './github';
+import { AxiosInstance } from "axios";
+import { GithubAuthApi } from "./github";
 
 export class AuthApi {
   public github: GithubAuthApi;

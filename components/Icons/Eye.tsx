@@ -28,4 +28,4 @@ export default function Eye(props: any) {
       />
     </svg>
   );
-};
+}
