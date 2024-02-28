@@ -14,7 +14,7 @@ function Find() {
       <SearchInput></SearchInput>
       <Suspense>
         <ResultCard></ResultCard>
-        <h1 className="mt-4 font-bold text-2xl">Related Domains</h1>
+        <h1 className="mt-4 font-bold text-2xl">相關結果</h1>
         {FakeRelatedDomains.map((item, index) => {
           return <ResultCard searchDomain={item} key={index}></ResultCard>;
         })}
