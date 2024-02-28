@@ -1,14 +1,13 @@
-// Props
-type propsType = {
-  searchDomain: string;
-};
+import { useSearchParams } from "next/navigation";
 
-function ResultCard({ searchDomain }: propsType) {
-  if (searchDomain) {
+function ResultCard() {
+  const searchParams = useSearchParams();
+  const domain = searchParams.get("sub");
+  if (domain) {
     return (
       <div className="w-full border border-neutral-600 rounded-lg px-3 flex flex-col items-start">
         <p className="text-2xl">
-          {searchDomain} <span>.dev-in.tw</span>
+          {domain} <span>.dev-in.tw</span>
         </p>
       </div>
     );
