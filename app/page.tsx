@@ -15,7 +15,7 @@ export default function Home() {
           <SearchInput />
         </div> */}
         <h1 className="font-bold mb-3 text-9xl max-md:text-8xl max-sm:text-7xl max-[500px]:text-6xl max-[400px]:text-5xl">DEV-IN.TW</h1>
-        <p className="font-bold mb-3 text-2xl max-md:text-xl max-sm:text-lg">還在為沒有網域架設自己的網站而煩惱嗎?&nbsp;立即註冊您的個人子網域吧!</p>
+        <p className="font-bold mb-3 text-2xl max-md:text-xl max-sm:text-lg max-[400px]:text-base">還在為沒有網域架設自己的網站而煩惱嗎?<span className="max-lg:hidden">&nbsp;</span><br className="lg:hidden" />立即註冊您的個人子網域吧!</p>
         <SearchInput />
       </div>
     </div>
