@@ -11,12 +11,14 @@ import { FakeRelatedDomains } from "@/data/fakeDomains";
 function Find() {
   return (
     <div className="py-5 flex gap-2 flex-col items-start">
-      <SearchInput></SearchInput>
+      <SearchInput />
       <Suspense>
-        <ResultCard></ResultCard>
+        <div className="w-full h-full mt-5">
+          <ResultCard />
+        </div>
         <h1 className="mt-4 font-bold text-2xl">相關結果</h1>
         {FakeRelatedDomains.map((item, index) => {
-          return <ResultCard searchDomain={item} key={index}></ResultCard>;
+          return <ResultCard searchDomain={item} key={index} />;
         })}
       </Suspense>
     </div>

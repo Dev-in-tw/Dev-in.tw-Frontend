@@ -19,7 +19,7 @@ import Delete from "@/components/Icons/Delete";
 import Status from "@/components/Domain/Status";
 
 // data
-import { fake_domain_data } from "@/app/domain/data";
+import { fake_domain_data } from "@/data/fakeOwnDomains";
 
 export default function Domain() {
   return (
