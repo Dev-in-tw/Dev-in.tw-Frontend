@@ -11,15 +11,12 @@ export async function GET(
   if (params.service === "github") {
     const searchParams = request.nextUrl.searchParams;
     const code = searchParams.get("code");
-    let data;
 
     if (!code) {
       return Response.json({ error: "Missing request params" });
     }
 
-    await apiClient.auth.github.post(code).then((res) => {
-      data = res.account_data;
-    });
+    const data = await apiClient.auth.github.post(code);
 
     return Response.json(data);
   }
