@@ -8,10 +8,16 @@ import ResultCard from "@/components/Find/ResultCard";
 // Data
 import { FakeRelatedDomains } from "@/data/fakeDomains";
 
+// module
+import { useSearchParams } from "next/navigation";
+
 function Find() {
+  const searchParams = useSearchParams();
+  const domain = searchParams.get("sub");
+
   return (
     <div className="py-5 flex gap-2 flex-col items-start">
-      <SearchInput />
+      <SearchInput sub={domain} />
       <Suspense>
         <div className="w-full h-full mt-5">
           <ResultCard />

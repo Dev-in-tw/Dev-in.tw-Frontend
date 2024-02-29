@@ -1,7 +1,6 @@
 import { Button } from "@nextui-org/react";
 import { useSearchParams } from "next/navigation";
 import { FaCircleCheck } from "react-icons/fa6";
-import { FaX } from "react-icons/fa6";
 import { IconContext } from "react-icons";
 
 type Props = {
@@ -27,10 +26,7 @@ function ResultCard({ searchDomain }: Props) {
     );
   } else {
     return (
-      <div className="w-full border border-neutral-600 rounded-lg p-3 flex items-center mt-5 gap-3">
-        <IconContext.Provider value={{ color: "red" }}>
-          <FaX />
-        </IconContext.Provider>
+      <div className="w-full border border-neutral-600 rounded-lg px-3 flex flex-col items-start">
         <p className="text-2xl">請輸入子網域</p>
       </div>
     );

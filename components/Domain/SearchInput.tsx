@@ -2,8 +2,9 @@
 import { Input } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 
-function SearchInput() {
+function SearchInput(prop: any) {
   const router = useRouter();
+
   return (
     <Input
       type="url"
@@ -24,6 +25,7 @@ function SearchInput() {
           <span className="text-default-500 text-small">.dev-in.tw</span>
         </div>
       }
+      defaultValue={prop.sub || ""}
       radius="full"
     />
   );
