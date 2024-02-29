@@ -11,3 +11,9 @@ pnpm-lock.yaml
 # Ignore .env files
 .env
 .env.local
+
+# Ignore types folder
+types
+types/*
+userType.ts
+domainType.ts
