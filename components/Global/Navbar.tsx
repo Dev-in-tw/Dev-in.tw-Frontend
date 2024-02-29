@@ -22,10 +22,17 @@ import {
   NavbarMenuItem,
 } from "@nextui-org/navbar";
 
-// module
+// hook
+import { useUserAccount } from "@/hooks/useUserAccount";
+import { useEffect } from "react";
 
 export default function NavbarC() {
   const router = useRouter();
+  const { token, userData, isLoading } = useUserAccount();
+
+  useEffect(() => {
+    console.log(token, userData, isLoading);
+  }, [token, userData, isLoading]);
 
   return (
     <NextUINavbar position="sticky">
