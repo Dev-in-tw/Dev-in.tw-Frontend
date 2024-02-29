@@ -24,6 +24,7 @@ function SearchInput() {
           <span className="text-default-500 text-small">.dev-in.tw</span>
         </div>
       }
+      radius="full"
     />
   );
 }
