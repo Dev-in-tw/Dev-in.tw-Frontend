@@ -18,6 +18,6 @@ export async function GET(
 
     const data = await apiClient.auth.github.post(code);
 
-    return Response.json(data);
+    return Response.json(JSON.stringify(data, null, 4));
   }
 }
