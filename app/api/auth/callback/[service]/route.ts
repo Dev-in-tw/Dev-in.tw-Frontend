@@ -18,6 +18,6 @@ export async function GET(
 
     const data = await apiClient.auth.github.post(code);
 
-    return Response.json(data);
+    return Response.redirect(process.env.NEXT_PUBLIC_APP_URL + "/callback/" + data.token, 302);
   }
 }
