@@ -8,8 +8,9 @@ import "@/styles/globals.scss";
 // type
 import type { Metadata, Viewport } from "next";
 
+
 export default function RootLayout({
-  children,
+  children
 }: Readonly<{
   children: React.ReactNode;
 }>) {
@@ -37,7 +38,7 @@ export const viewport: Viewport = {
   maximumScale: 1,
   userScalable: false,
   themeColor: "black",
-  colorScheme: "dark",
+  colorScheme: "dark"
 };
 
 export const metadata: Metadata = {
@@ -59,7 +60,7 @@ export const metadata: Metadata = {
     "domain",
     "TW",
     "台灣",
-    "Taiwan",
+    "Taiwan"
   ],
   referrer: "origin",
   creator: "LAZCO STUDIO LTD",
@@ -73,15 +74,15 @@ export const metadata: Metadata = {
       "Dev-in.tw是一個由HACO和OnCloud聯合構思的專案，打造一個給予台灣的開發者建立個人子網域的平台，提供 A、AAAA、CNAME、URI......等功能。",
     images: [
       {
-        url: "/images/banner.png",
-      },
-    ],
+        url: "/images/banner.png"
+      }
+    ]
   },
   twitter: {
     card: "summary_large_image",
     title: "Dev-in.tw",
     description:
       "Dev-in.tw是一個由HACO和OnCloud聯合構思的專案，打造一個給予台灣的開發者建立個人子網域的平台，提供 A、AAAA、CNAME、URI......等功能。",
-    images: "/images/banner.png",
-  },
+    images: "/images/banner.png"
+  }
 };

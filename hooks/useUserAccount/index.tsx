@@ -1,8 +1,8 @@
 // type
 import { userType } from "@/types/userType";
 
-// module 
-import { useState, useEffect, useCallback } from "react";
+// module
+import { useState, useEffect } from "react";
 
 //api
 import apiClient from "@/api";

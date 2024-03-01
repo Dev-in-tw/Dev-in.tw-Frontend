@@ -2,6 +2,7 @@
 
 import SearchInput from "@/components/Domain/SearchInput";
 
+
 export default function Home() {
   return (
     <div className="my-auto flex flex-col h-full w-full select-none">

@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { FaSun } from "react-icons/fa";
 import { FaMoon } from "react-icons/fa";
 
+
 export default function ThemeSwitcher() {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();

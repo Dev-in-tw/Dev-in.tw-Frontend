@@ -2,6 +2,7 @@
 import { Input } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 
+
 function SearchInput(prop: any) {
   const router = useRouter();
 

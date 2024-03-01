@@ -1,13 +1,7 @@
 {
-  "extends": [
-    "next/core-web-vitals",
-    "prettier"
-  ],
+  "extends": ["next/core-web-vitals", "prettier"],
   "rules": {
-    "semi": [
-      "error",
-      "always"
-    ],
+    "semi": ["error", "always"],
     "indent": [
       "error",
       2,
@@ -15,29 +9,21 @@
         "SwitchCase": 1
       }
     ],
-    "quotes": [
-      "error",
-      "double"
-    ],
-    "brace-style": [
-      "error",
-      "stroustrup"
-    ],
+    "quotes": ["error", "double"],
+    "brace-style": ["error", "stroustrup"],
     "no-console": [
       "warn",
       {
-        "allow": [
-          "warn",
-          "error"
-        ]
+        "allow": ["warn", "error"]
       }
     ],
-    "comma-dangle": [
-      "warn",
-      "never"
-    ],
-    "no-unused-vars": [
-      "warn"
+    "comma-dangle": ["warn", "never"],
+    "no-unused-vars": ["warn"],
+    "import/newline-after-import": [
+      "error",
+      {
+        "count": 2
+      }
     ]
   }
 }

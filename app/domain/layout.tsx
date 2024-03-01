@@ -9,13 +9,13 @@ import { FaServer } from "react-icons/fa";
 
 // module
 import { Card } from "@nextui-org/react";
-import { useState } from "react";
 
 // component
 import PathCheck from "@/components/Domain/PathCheck";
 
+
 export default function DomainLayout({
-  children,
+  children
 }: Readonly<{
   children: React.ReactNode;
 }>) {

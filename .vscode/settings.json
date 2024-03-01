@@ -1,4 +1,11 @@
 {
   "cSpell.words": ["lazco", "nextui", "tailwindcss", "usehooks"],
-  "deepscan.enable": true
+  "deepscan.enable": true,
+  "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+  }
 }

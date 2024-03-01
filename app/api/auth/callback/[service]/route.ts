@@ -4,6 +4,7 @@ import { type NextRequest } from "next/server";
 // api
 import apiClient from "@/api";
 
+
 export async function GET(
   request: NextRequest,
   { params }: { params: { service: string } },

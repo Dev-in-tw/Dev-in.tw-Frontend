@@ -8,7 +8,7 @@ import {
   TableBody,
   TableRow,
   TableCell,
-  Tooltip,
+  Tooltip
 } from "@nextui-org/react";
 
 // component
@@ -21,6 +21,7 @@ import Status from "@/components/Domain/Status";
 // data
 import { fake_domain_data } from "@/data/fakeOwnDomains";
 
+
 export default function Domain() {
   return (
     <>
@@ -28,7 +29,7 @@ export default function Domain() {
         removeWrapper
         isHeaderSticky
         classNames={{
-          wrapper: "min-h-[222px]",
+          wrapper: "min-h-[222px]"
         }}
         className="max-h-[45.5rem] overflow-y-auto"
       >
