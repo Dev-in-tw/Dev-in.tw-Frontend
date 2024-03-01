@@ -17,6 +17,7 @@ export type userType = {
   warn: Number;           // Admin warning time.
   disable: Boolean;       // Banned
   premium: Boolean;       // Yup; VIP mode.
+  primaryEmail: String;   // Primary email.
   ip: [String];           // 記錄使用者 IP
   create_time: Date;      // Account created time.
   last_update: Date;      // Account last edit time.

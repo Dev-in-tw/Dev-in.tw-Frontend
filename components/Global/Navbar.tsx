@@ -30,7 +30,6 @@ import {
 import { useUserAccount } from "@/hooks/useUserAccount";
 import { useEffect } from "react";
 
-
 export default function NavbarC() {
   const router = useRouter();
   const { token, userData, isLoading, isLogin } = useUserAccount();
@@ -50,10 +49,10 @@ export default function NavbarC() {
         </NavbarBrand>
       </NavbarContent>
       <NavbarContent
-        className="hidden sm:flex basis-1/5 sm:basis-full gap-5"
+        className="flex basis-1/5 sm:basis-full gap-5"
         justify="end"
       >
-        <NavbarItem className="hidden sm:flex gap-3">
+        <NavbarItem className="flex gap-3">
           <Link
             isExternal
             href="https://discord.gg/ZvwTZqXjYf"
@@ -76,39 +75,7 @@ export default function NavbarC() {
           {/* <ThemeSwitch /> */}
           {/* No need to show the theme switcher in the navbar in first release. */}
         </NavbarItem>
-        <NavbarItem className="hidden md:flex">
-          <Button
-            className="text-[1rem] rounded-full dark:text-[#eeeeee] dark:bg-[#292a2d] text-[#333333] bg-[#dddddd]"
-            variant="flat"
-            onClick={() => router.replace("/login")}
-          >
-            登入
-          </Button>
-        </NavbarItem>
-      </NavbarContent>
-
-      <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
-        <Link
-          isExternal
-          href="https://discord.gg/ZvwTZqXjYf"
-          aria-label="Discord"
-          target="_blank"
-          className="text-2xl"
-        >
-          <FaDiscord className="text-[#eeeeee] scale-y-125 scale-x-[1.175] mr-1" />
-          {/* Discord's hight is not enough, so scale up and add margin right. */}
-        </Link>
-        <Link
-          isExternal
-          href="https://github.com/Dev-in-tw"
-          aria-label="Github"
-          target="_blank"
-          className="text-2xl"
-        >
-          <FaGithub className="text-[#e1e1e1]" />
-        </Link>
-        <ThemeSwitch />
-        <NavbarItem className="md:hidden flex">
+        <NavbarItem>
           {isLoading ? (
             <Spinner color="default" size="lg" />
           ) : isLogin ? (
@@ -118,27 +85,29 @@ export default function NavbarC() {
                   isBordered
                   as="button"
                   className="transition-transform"
-                  color="secondary"
-                  name="Jason Hughes"
+                  color="default"
+                  name={userData?.name as string}
                   size="sm"
-                  src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
+                  src={userData?.avatar as string}
                 />
               </DropdownTrigger>
               <DropdownMenu aria-label="Profile Actions" variant="flat">
                 <DropdownItem key="profile" className="h-14 gap-2">
-                  <p className="font-semibold">Signed in as</p>
-                  <p className="font-semibold">zoey@example.com</p>
+                  <p className="font-semibold">您好，{userData?.name}</p>
+                  <p className="font-semibold">{userData?.primaryEmail}</p>
                 </DropdownItem>
-                <DropdownItem key="settings">My Settings</DropdownItem>
-                <DropdownItem key="team_settings">Team Settings</DropdownItem>
-                <DropdownItem key="analytics">Analytics</DropdownItem>
-                <DropdownItem key="system">System</DropdownItem>
-                <DropdownItem key="configurations">Configurations</DropdownItem>
-                <DropdownItem key="help_and_feedback">
-                  Help & Feedback
+                <DropdownItem
+                  key="domain"
+                  onClick={() => router.push("/domain")}
+                >
+                  子網域設定
                 </DropdownItem>
-                <DropdownItem key="logout" color="danger">
-                  Log Out
+                <DropdownItem
+                  key="logout"
+                  onClick={() => router.push("/logout")}
+                  color="danger"
+                >
+                  登出
                 </DropdownItem>
               </DropdownMenu>
             </Dropdown>
