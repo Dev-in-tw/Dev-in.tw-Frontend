@@ -22,20 +22,17 @@ export function useUserAccount() {
         setUserData(_userData.accountData);
         setToken(JSON.parse(_token));
       }
-
-      setIsLoading(false);
     })();
   }, []);
 
   useEffect(() => {
-    // console.log(userData, isLogin, isLoading);
-
-    (async () => {
-      if (token && userData) {
-        setIsLogin(true);
-      }
-    })();
-  }, [token, userData, isLoading]);
+    if (token && userData) {
+      setIsLogin(true);
+    } else {
+      setIsLogin(false);
+    }
+    setIsLoading(false);
+  }, [token, userData]);
 
   return { token, userData, isLoading, isLogin, setIsLogin };
 }

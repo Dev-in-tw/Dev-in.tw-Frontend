@@ -15,11 +15,7 @@ export default function Callback() {
   const [token, setToken] = useLocalStorage<any>("token", null);
 
   useEffect(() => {
-    // eslint-disable-next-line no-console
-    console.log(_token, token);
     setToken(_token);
-    // eslint-disable-next-line no-console
-    console.log(_token, token);
   }, [_token, setToken, token]);
 
   if (token !== null && token !== undefined) {

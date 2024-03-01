@@ -11,13 +11,13 @@
       }
     ],
     "quotes": ["error", "double"],
-    "brace-style": ["error", "stroustrup"],
-    "no-console": [
-      "warn",
-      {
-        "allow": ["warn", "error"]
-      }
-    ],
+    // "brace-style": ["error", "stroustrup"],
+    // "no-console": [
+    //   "warn",
+    //   {
+    //     "allow": ["warn", "error"]
+    //   }
+    // ],
     "comma-dangle": ["warn", "never"],
     "no-unused-vars": ["warn"]
     // "import/newline-after-import": [

@@ -28,16 +28,16 @@ import {
 
 // hook
 import { useUserAccount } from "@/hooks/useUserAccount";
-import { useEffect } from "react";
 
 export default function NavbarC() {
   const router = useRouter();
-  const { token, userData, isLoading, isLogin } = useUserAccount();
+  const { userData, isLoading, isLogin, setIsLogin } = useUserAccount();
 
-  useEffect(() => {
-    // eslint-disable-next-line no-console
-    console.log(userData, isLogin);
-  }, [userData, isLoading, isLogin]);
+  function logout() {
+    localStorage.clear();
+    setIsLogin(false);
+    router.replace("/");
+  }
 
   return (
     <NextUINavbar position="sticky">
@@ -102,11 +102,7 @@ export default function NavbarC() {
                 >
                   子網域設定
                 </DropdownItem>
-                <DropdownItem
-                  key="logout"
-                  onClick={() => router.push("/logout")}
-                  color="danger"
-                >
+                <DropdownItem key="logout" onClick={logout} color="danger">
                   登出
                 </DropdownItem>
               </DropdownMenu>
