@@ -19,7 +19,7 @@
       }
     ],
     "comma-dangle": ["warn", "never"],
-    "no-unused-vars": ["warn"],
+    "no-unused-vars": ["warn"]
     // "import/newline-after-import": [
     //   "error",
     //   {
