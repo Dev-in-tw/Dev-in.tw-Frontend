@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 // component
 import { FaGithub } from "react-icons/fa";
 import { FaDiscord } from "react-icons/fa";
-import ThemeSwitch from "@/components/Global/ThemeSwitch";
+// import ThemeSwitch from "@/components/Global/ThemeSwitch";
 import { Button } from "@nextui-org/button";
 import { Link } from "@nextui-org/link";
 import {

@@ -8,7 +8,6 @@ import "@/styles/globals.scss";
 // type
 import type { Metadata, Viewport } from "next";
 
-
 export default function RootLayout({
   children
 }: Readonly<{
@@ -18,7 +17,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Providers>
-          <div className="flex flex-col h-[100dvh]">
+          <div className="flex flex-col h-[100dvh] dark">
             <NavbarC />
             <div className="h-[calc(100%-4rem)] overflow-y-auto items-center justify-center text-center">
               <div className="max-w-[1024px] h-full mx-auto px-6">
