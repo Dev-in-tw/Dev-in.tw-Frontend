@@ -36,8 +36,8 @@ export default function NavbarC() {
 
   useEffect(() => {
     // eslint-disable-next-line no-console
-    console.log(token, userData, isLoading, isLogin);
-  }, [token, userData, isLoading, isLogin]);
+    console.log(userData, isLogin);
+  }, [userData, isLoading, isLogin]);
 
   return (
     <NextUINavbar position="sticky">

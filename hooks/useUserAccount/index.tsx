@@ -28,6 +28,8 @@ export function useUserAccount() {
   }, []);
 
   useEffect(() => {
+    // console.log(userData, isLogin, isLoading);
+
     (async () => {
       if (token && userData) {
         setIsLogin(true);
