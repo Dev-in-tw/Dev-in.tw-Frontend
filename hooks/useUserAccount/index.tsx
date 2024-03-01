@@ -5,7 +5,7 @@ import { userType } from "@/types/userType";
 import { useState, useEffect, useCallback } from "react";
 
 //api
-// import apiClient from "@/api";
+import apiClient from "@/api";
 
 
 export function useUserAccount() {
@@ -19,21 +19,12 @@ export function useUserAccount() {
       const token = localStorage.getItem("token");
 
       if (token) {
-        console.log(token);
-        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/info`, {
-          headers: {
-            Authorization: `Bearer ${JSON.parse(token)}`,
-          }
-        }).then(res => res.json()).then(data => {
-          setUserData(data);
-        });
-        // setUserData(await apiClient.user.info.get(token));
+        setUserData(await apiClient.user.info.get(JSON.parse(token)));
       }
-
       console.log(userData, token, isLoading)
       setIsLoading(false);
     })();
-  }, [isLoading, userData]);
+  }, []);
 
   return { token, userData, isLoading };
 
