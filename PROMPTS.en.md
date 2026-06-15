@@ -1,4 +1,4 @@
-# Dev-in.tw Frontend — Rebuild Prompts
+# Dev-in.tw Frontend — Prompts
 
 This document collects every prompt needed to build this project from scratch, ordered by build phase.
 Each block is ready to paste into an AI coding agent (e.g. Claude Code).
