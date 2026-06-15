@@ -3,7 +3,7 @@
 //next.js
 import Image from "next/image";
 import NextLink from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 // component
 import { FaDiscord, FaGithub } from "react-icons/fa";
@@ -21,23 +21,67 @@ import { Spinner } from "@/components/ui/spinner";
 
 // hook
 import { useUserAccount } from "@/hooks/useUserAccount";
+// token helpers
+import { clearToken } from "@/lib/authToken";
+import { cn } from "@/lib/utils";
+
+const NAV_LINKS = [
+  { href: "/", label: "首頁" },
+  { href: "/domain", label: "我的子網域" },
+  { href: "/domain/dns", label: "DNS" }
+];
 
 export default function NavbarC() {
   const router = useRouter();
+  const pathname = usePathname();
   const { userData, isLoading, isLogin, setIsLogin } = useUserAccount();
 
   function logout() {
-    localStorage.clear();
+    clearToken();
     setIsLogin(false);
     router.replace("/");
   }
 
+  function isActive(href: string) {
+    if (href === "/") return pathname === "/";
+    return pathname === href || pathname.startsWith(`${href}/`);
+  }
+
   return (
-    <nav className="sticky top-0 z-40 flex h-16 w-full items-center justify-between px-6">
-      <div className="flex items-center">
-        <NextLink className="flex items-center gap-1" href="/">
-          <Image src="/images/logo.png" width={40} height={40} alt="logo" />
+    <nav className="glass sticky top-0 z-40 flex h-16 w-full items-center justify-between border-b border-border px-6 backdrop-blur-xl">
+      <div className="flex items-center gap-8">
+        <NextLink
+          className="group flex items-center gap-2.5 transition-opacity hover:opacity-90"
+          href="/"
+        >
+          <Image
+            src="/images/logo.png"
+            width={36}
+            height={36}
+            alt="logo"
+            className="transition-transform duration-300 group-hover:scale-105"
+          />
+          <span className="hidden font-mono text-lg font-bold tracking-tight sm:inline">
+            DEV-IN
+            <span className="text-brand">.TW</span>
+          </span>
         </NextLink>
+        <div className="hidden items-center gap-1 md:flex">
+          {NAV_LINKS.map((link) => (
+            <NextLink
+              key={link.href}
+              href={link.href}
+              className={cn(
+                "rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
+                isActive(link.href)
+                  ? "bg-accent text-foreground"
+                  : "text-muted-foreground hover:bg-accent/60 hover:text-foreground"
+              )}
+            >
+              {link.label}
+            </NextLink>
+          ))}
+        </div>
       </div>
       <div className="flex items-center gap-5">
         <div className="flex items-center gap-3">
@@ -46,31 +90,31 @@ export default function NavbarC() {
             aria-label="Discord"
             target="_blank"
             rel="noreferrer"
-            className="text-2xl"
+            className="text-2xl text-muted-foreground transition-colors hover:text-foreground"
           >
-            <FaDiscord className="text-[#eeeeee] scale-y-125 scale-x-[1.175] mr-1" />
+            <FaDiscord className="mr-1 scale-x-[1.175] scale-y-125" />
           </a>
           <a
             href="https://github.com/Dev-in-tw"
             aria-label="Github"
             target="_blank"
             rel="noreferrer"
-            className="text-2xl"
+            className="text-2xl text-muted-foreground transition-colors hover:text-foreground"
           >
-            <FaGithub className="text-[#eeeeee]" />
+            <FaGithub />
           </a>
         </div>
         <div>
           {isLoading ? (
-            <Spinner className="size-8 text-[#eeeeee]" />
+            <Spinner className="size-8 text-muted-foreground" />
           ) : isLogin ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <button
                   type="button"
-                  className="rounded-full outline-none transition-transform hover:scale-105 focus-visible:ring-2 focus-visible:ring-ring"
+                  className="rounded-full outline-none transition-transform hover:scale-105 active:scale-95 focus-visible:ring-2 focus-visible:ring-ring"
                 >
-                  <Avatar className="border-2 border-foreground/40">
+                  <Avatar className="border-2 border-brand/40 transition-colors hover:border-brand/70">
                     <AvatarImage
                       src={userData?.avatar as string}
                       alt={userData?.name as string}
@@ -84,7 +128,7 @@ export default function NavbarC() {
               <DropdownMenuContent align="end" className="min-w-56">
                 <DropdownMenuLabel className="flex flex-col gap-1">
                   <span className="font-semibold">您好，{userData?.name}</span>
-                  <span className="font-semibold">
+                  <span className="truncate text-xs font-normal text-muted-foreground">
                     {userData?.primaryEmail}
                   </span>
                 </DropdownMenuLabel>
@@ -92,6 +136,10 @@ export default function NavbarC() {
                 <DropdownMenuItem onClick={() => router.push("/domain")}>
                   子網域設定
                 </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => router.push("/domain/dns")}>
+                  DNS 設定
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
                 <DropdownMenuItem variant="destructive" onClick={logout}>
                   登出
                 </DropdownMenuItem>
@@ -99,8 +147,7 @@ export default function NavbarC() {
             </DropdownMenu>
           ) : (
             <Button
-              className="text-[1rem] rounded-full dark:text-[#eeeeee] dark:bg-[#292a2d] text-[#333333] bg-[#dddddd]"
-              variant="secondary"
+              className="rounded-full bg-brand text-[1rem] text-brand-foreground transition-all hover:bg-brand/90 hover:shadow-glow"
               onClick={() => router.replace("/login")}
             >
               登入

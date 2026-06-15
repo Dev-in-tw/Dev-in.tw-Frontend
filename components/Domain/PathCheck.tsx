@@ -2,10 +2,7 @@
 
 import { usePathname } from "next/navigation";
 
-export default function PathCheck(prop: any) {
+export default function PathCheck(path: string): boolean {
   const pathname = usePathname();
-
-  if (pathname === prop) {
-    return true;
-  }
+  return pathname === path;
 }

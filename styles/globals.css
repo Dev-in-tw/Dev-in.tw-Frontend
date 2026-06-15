@@ -23,27 +23,43 @@
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
+
+  /* 品牌 / 語意狀態（light fallback，forcedTheme dark 下不主導） */
+  --brand: oklch(0.55 0.16 250);
+  --brand-foreground: oklch(0.98 0 0);
+  --success: oklch(0.62 0.17 150);
+  --warning: oklch(0.70 0.16 80);
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
+  /* 背景分層：更深、帶一點藍 */
+  --background: oklch(0.16 0.012 265);
+  --foreground: oklch(0.97 0 0);
+  --card: oklch(0.20 0.014 265 / 0.7); /* 半透明 → 玻璃擬態 */
+  --card-foreground: oklch(0.97 0 0);
+  --popover: oklch(0.18 0.014 265);
+  --popover-foreground: oklch(0.97 0 0);
   --primary: oklch(0.922 0 0);
   --primary-foreground: oklch(0.205 0 0);
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
+  --muted: oklch(0.26 0.01 265);
+  --muted-foreground: oklch(0.70 0.015 265);
+
+  /* 品牌 / accent：青藍 → 紫的科技感 */
+  --brand: oklch(0.68 0.16 250);
+  --brand-foreground: oklch(0.98 0 0);
+  --accent: oklch(0.30 0.04 265);
+  --accent-foreground: oklch(0.98 0 0);
+  --ring: oklch(0.68 0.16 250 / 0.6);
+
+  /* 語意狀態（給 StatusBadge / DNS） */
+  --destructive: oklch(0.64 0.21 25);
+  --success: oklch(0.72 0.17 150);
+  --warning: oklch(0.80 0.16 80);
+
+  --border: oklch(1 0 0 / 8%);
+  --input: oklch(1 0 0 / 12%);
 }
 
 @theme inline {
@@ -69,6 +85,21 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+
+  /* 品牌 / 語意狀態 mapping */
+  --color-brand: var(--brand);
+  --color-brand-foreground: var(--brand-foreground);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+
+  /* 字體 */
+  --font-sans: var(--font-sans), ui-sans-serif, system-ui, "PingFang TC",
+    "Noto Sans TC", sans-serif;
+  --font-mono: var(--font-mono), ui-monospace, monospace;
+
+  /* 光暈陰影 */
+  --shadow-glow: 0 0 0 1px oklch(1 0 0 / 6%),
+    0 8px 40px -8px oklch(0.68 0.16 250 / 0.35);
 }
 
 @layer base {
@@ -80,25 +111,42 @@
   }
 }
 
-/* ── 專案自訂樣式（沿用 Dev-in.tw 原本的黑底外觀） ───────────────── */
+/* ── 專案自訂樣式（現代簡潔 SaaS 深色） ───────────────── */
 :root {
   --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 0, 0, 0;
-  --background-end-rgb: 0, 0, 0;
 }
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background:
+    radial-gradient(
+      60% 50% at 50% 0%,
+      oklch(0.68 0.16 250 / 0.18),
+      transparent 70%
+    ),
+    var(--background);
 }
 
 @utility text-balance {
   text-wrap: balance;
+}
+
+/* 玻璃卡 */
+@utility glass {
+  background: var(--card);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+}
+
+/* hero grid 背景 */
+@utility bg-grid {
+  background-image: linear-gradient(
+      to right,
+      oklch(1 0 0 / 4%) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, oklch(1 0 0 / 4%) 1px, transparent 1px);
+  background-size: 48px 48px;
 }
 
 /* custom scrollbar */
@@ -112,8 +160,12 @@ body {
 
 ::-webkit-scrollbar-thumb {
   margin-right: 1rem;
-  background-color: #a1a1a1;
+  background-color: var(--muted);
   border-radius: 1rem;
   border: 6px solid transparent;
   background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--border);
 }

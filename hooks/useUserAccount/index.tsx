@@ -1,26 +1,34 @@
-// type
-
 // module
 import { useEffect, useState } from "react";
-//api
+// api
 import apiClient from "@/api";
+// token helpers
+import { clearToken, getToken } from "@/lib/authToken";
+// type
 import type { userType } from "@/types/userType";
 
 export function useUserAccount() {
   const [isLoading, setIsLoading] = useState(true);
   const [isLogin, setIsLogin] = useState(false);
   const [userData, setUserData] = useState<userType | null>(null);
-  const [token, setToken] = useState<string | null>(null);
+  const [token, setStateToken] = useState<string | null>(null);
 
   useEffect(() => {
     (async () => {
-      const _token = localStorage.getItem("token");
+      const _token = getToken();
 
       if (_token) {
-        const _userData = await apiClient.user.info.get(JSON.parse(_token));
-        setUserData(_userData.accountData);
-        setToken(JSON.parse(_token));
+        try {
+          const _userData = await apiClient.user.info.get();
+          setUserData(_userData.accountData);
+          setStateToken(_token);
+        } catch {
+          clearToken();
+          setUserData(null);
+          setStateToken(null);
+        }
       }
+      setIsLoading(false);
     })();
   }, []);
 
@@ -30,7 +38,6 @@ export function useUserAccount() {
     } else {
       setIsLogin(false);
     }
-    setIsLoading(false);
   }, [token, userData]);
 
   return { token, userData, isLoading, isLogin, setIsLogin };

@@ -7,6 +7,20 @@ import "@/styles/globals.css";
 
 // type
 import type { Metadata, Viewport } from "next";
+// font
+import { Inter, JetBrains_Mono } from "next/font/google";
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap"
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  display: "swap"
+});
 
 export default function RootLayout({
   children
@@ -14,7 +28,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html
+      lang="zh-Hant"
+      className={`${inter.variable} ${jetbrainsMono.variable}`}
+    >
       <body>
         <Providers>
           <div className="flex flex-col h-[100dvh] dark">
