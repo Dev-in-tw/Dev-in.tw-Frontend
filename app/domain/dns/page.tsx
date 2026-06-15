@@ -2,15 +2,13 @@
 
 // module
 import { Globe, Pencil, Plus, Server, Trash2 } from "lucide-react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { Suspense, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
 import { toast } from "sonner";
 // component
 import DnsRecordDialog from "@/components/Domain/DnsRecordDialog";
 import ConfirmDialog from "@/components/Global/ConfirmDialog";
 import EmptyState from "@/components/Global/EmptyState";
-import PageHeader from "@/components/Global/PageHeader";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -20,7 +18,6 @@ import {
   SelectValue
 } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Switch } from "@/components/ui/switch";
 import {
   Table,
   TableBody,
@@ -40,47 +37,7 @@ import { useDomains } from "@/hooks/useDomains";
 // type
 import type { dnsRecordType } from "@/types/dnsType";
 
-function SubdomainSelector({ onSelect }: { onSelect: (id: string) => void }) {
-  const { domains, isLoading } = useDomains();
-
-  if (isLoading) {
-    return <Skeleton className="h-9 w-64" />;
-  }
-
-  if (domains.length === 0) {
-    return (
-      <EmptyState
-        icon={Globe}
-        title="你還沒有任何子網域"
-        description="先申請一個子網域，才能管理它的 DNS 記錄。"
-      />
-    );
-  }
-
-  return (
-    <div className="glass space-y-3 rounded-xl p-6 shadow-glow">
-      <div className="space-y-1">
-        <p className="text-base font-medium">管理 DNS 記錄</p>
-        <p className="text-sm text-muted-foreground">選擇要管理的子網域</p>
-      </div>
-      <Select onValueChange={onSelect}>
-        <SelectTrigger className="w-72">
-          <SelectValue placeholder="選擇子網域" />
-        </SelectTrigger>
-        <SelectContent>
-          {domains.map((item) => (
-            <SelectItem key={item._id} value={item._id}>
-              <span className="font-mono">{item.name}.dev-in.tw</span>
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-    </div>
-  );
-}
-
-function DnsManager({ domainId }: { domainId: string }) {
-  const { domains } = useDomains();
+function Records({ domainId }: { domainId: string }) {
   const { records, isLoading, create, update, remove } =
     useDnsRecords(domainId);
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -88,9 +45,6 @@ function DnsManager({ domainId }: { domainId: string }) {
   const [pendingDelete, setPendingDelete] = useState<dnsRecordType | null>(
     null
   );
-
-  const current = domains.find((item) => item._id === domainId);
-  const title = current ? `DNS 記錄 — ${current.name}.dev-in.tw` : "DNS 記錄";
 
   function openCreate() {
     setEditing(null);
@@ -115,24 +69,23 @@ function DnsManager({ domainId }: { domainId: string }) {
   }
 
   return (
-    <div className="space-y-6 p-2">
-      <PageHeader
-        title={title}
-        description="所有變更會即時同步到 Cloudflare。"
-        action={
-          <Button
-            onClick={openCreate}
-            className="bg-brand text-brand-foreground transition-all hover:bg-brand/90 hover:shadow-glow"
-          >
-            <Plus className="size-4" />
-            新增記錄
-          </Button>
-        }
-      />
+    <div className="space-y-4">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <p className="text-sm text-muted-foreground">
+          共 {records.length} 筆記錄 · 變更即時同步到 Cloudflare
+        </p>
+        <Button
+          onClick={openCreate}
+          className="bg-brand text-brand-foreground transition-all hover:bg-brand/90 hover:shadow-glow"
+        >
+          <Plus className="size-4" />
+          新增記錄
+        </Button>
+      </div>
 
       {isLoading ? (
         <div className="space-y-3">
-          {Array.from({ length: 4 }).map((_, index) => (
+          {Array.from({ length: 3 }).map((_, index) => (
             <Skeleton key={index} className="h-12 w-full rounded-lg" />
           ))}
         </div>
@@ -140,7 +93,7 @@ function DnsManager({ domainId }: { domainId: string }) {
         <EmptyState
           icon={Server}
           title="尚無 DNS 記錄"
-          description="新增第一筆記錄，將你的子網域指向伺服器。"
+          description="新增第一筆記錄，把子網域指向你的伺服器。"
           action={
             <Button
               onClick={openCreate}
@@ -159,7 +112,6 @@ function DnsManager({ domainId }: { domainId: string }) {
               <TableHead>名稱</TableHead>
               <TableHead>內容</TableHead>
               <TableHead>TTL</TableHead>
-              <TableHead className="text-center">Proxy</TableHead>
               <TableHead className="text-center">動作</TableHead>
             </TableRow>
           </TableHeader>
@@ -170,23 +122,15 @@ function DnsManager({ domainId }: { domainId: string }) {
                 className="transition-colors hover:bg-accent/40"
               >
                 <TableCell>
-                  <Badge
-                    variant="outline"
-                    className="border-brand/30 bg-brand/10 font-mono text-brand"
-                  >
+                  <span className="rounded-md border border-brand/30 bg-brand/10 px-2 py-0.5 font-mono text-xs text-brand">
                     {record.type}
-                  </Badge>
+                  </span>
                 </TableCell>
                 <TableCell className="font-mono">{record.name}</TableCell>
                 <TableCell className="font-mono break-all">
                   {record.content}
                 </TableCell>
                 <TableCell>{record.ttl === 1 ? "自動" : record.ttl}</TableCell>
-                <TableCell className="text-center">
-                  <div className="flex justify-center">
-                    <Switch checked={record.proxied} disabled />
-                  </div>
-                </TableCell>
                 <TableCell>
                   <div className="flex items-center justify-center gap-3">
                     <Tooltip>
@@ -200,7 +144,7 @@ function DnsManager({ domainId }: { domainId: string }) {
                           <Pencil className="size-4" />
                         </button>
                       </TooltipTrigger>
-                      <TooltipContent>編輯記錄</TooltipContent>
+                      <TooltipContent>編輯</TooltipContent>
                     </Tooltip>
                     <Tooltip>
                       <TooltipTrigger asChild>
@@ -214,7 +158,7 @@ function DnsManager({ domainId }: { domainId: string }) {
                         </button>
                       </TooltipTrigger>
                       <TooltipContent className="bg-destructive text-white">
-                        刪除記錄
+                        刪除
                       </TooltipContent>
                     </Tooltip>
                   </div>
@@ -252,21 +196,66 @@ function DnsManager({ domainId }: { domainId: string }) {
 }
 
 function DnsContent() {
-  const router = useRouter();
   const searchParams = useSearchParams();
-  const domainId = searchParams.get("domain");
+  const { domains, isLoading } = useDomains();
+  const [selected, setSelected] = useState("");
 
-  if (!domainId) {
+  // 預設選第一個子網域;若網址帶了有效的 ?domain= 則用它(無效/undefined 就退回第一個)
+  useEffect(() => {
+    if (selected || domains.length === 0) return;
+    const fromUrl = searchParams.get("domain");
+    const valid = domains.some((item) => item._id === fromUrl);
+    setSelected(valid ? (fromUrl as string) : domains[0]._id);
+  }, [domains, selected, searchParams]);
+
+  if (isLoading) {
     return (
-      <div className="p-4">
-        <SubdomainSelector
-          onSelect={(id) => router.replace(`/domain/dns?domain=${id}`)}
+      <div className="space-y-4 p-2">
+        <Skeleton className="h-8 w-40" />
+        <Skeleton className="h-10 w-64" />
+        <Skeleton className="h-32 w-full rounded-lg" />
+      </div>
+    );
+  }
+
+  if (domains.length === 0) {
+    return (
+      <div className="flex h-full items-center justify-center p-4">
+        <EmptyState
+          icon={Globe}
+          title="你還沒有任何子網域"
+          description="先申請一個子網域，才能管理它的 DNS 記錄。"
         />
       </div>
     );
   }
 
-  return <DnsManager domainId={domainId} />;
+  return (
+    <div className="space-y-6 p-2">
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <div className="space-y-1">
+          <h1 className="text-2xl font-bold">DNS 設定</h1>
+          <p className="text-sm text-muted-foreground">
+            選擇子網域，管理它的 DNS 記錄。
+          </p>
+        </div>
+        <Select value={selected} onValueChange={setSelected}>
+          <SelectTrigger className="w-64">
+            <SelectValue placeholder="選擇子網域" />
+          </SelectTrigger>
+          <SelectContent>
+            {domains.map((item) => (
+              <SelectItem key={item._id} value={item._id}>
+                <span className="font-mono">{item.name}.dev-in.tw</span>
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+
+      {selected ? <Records key={selected} domainId={selected} /> : null}
+    </div>
+  );
 }
 
 export default function DnsPage() {

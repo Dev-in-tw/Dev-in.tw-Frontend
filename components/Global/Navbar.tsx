@@ -3,7 +3,7 @@
 //next.js
 import Image from "next/image";
 import NextLink from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 // component
 import { FaDiscord, FaGithub } from "react-icons/fa";
@@ -23,17 +23,9 @@ import { Spinner } from "@/components/ui/spinner";
 import { useUserAccount } from "@/hooks/useUserAccount";
 // token helpers
 import { clearToken } from "@/lib/authToken";
-import { cn } from "@/lib/utils";
-
-const NAV_LINKS = [
-  { href: "/", label: "首頁" },
-  { href: "/domain", label: "我的子網域" },
-  { href: "/domain/dns", label: "DNS" }
-];
 
 export default function NavbarC() {
   const router = useRouter();
-  const pathname = usePathname();
   const { userData, isLoading, isLogin, setIsLogin } = useUserAccount();
 
   function logout() {
@@ -42,47 +34,24 @@ export default function NavbarC() {
     router.replace("/");
   }
 
-  function isActive(href: string) {
-    if (href === "/") return pathname === "/";
-    return pathname === href || pathname.startsWith(`${href}/`);
-  }
-
   return (
     <nav className="glass sticky top-0 z-40 flex h-16 w-full items-center justify-between border-b border-border px-6 backdrop-blur-xl">
-      <div className="flex items-center gap-8">
-        <NextLink
-          className="group flex items-center gap-2.5 transition-opacity hover:opacity-90"
-          href="/"
-        >
-          <Image
-            src="/images/logo.png"
-            width={36}
-            height={36}
-            alt="logo"
-            className="transition-transform duration-300 group-hover:scale-105"
-          />
-          <span className="hidden font-mono text-lg font-bold tracking-tight sm:inline">
-            DEV-IN
-            <span className="text-brand">.TW</span>
-          </span>
-        </NextLink>
-        <div className="hidden items-center gap-1 md:flex">
-          {NAV_LINKS.map((link) => (
-            <NextLink
-              key={link.href}
-              href={link.href}
-              className={cn(
-                "rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
-                isActive(link.href)
-                  ? "bg-accent text-foreground"
-                  : "text-muted-foreground hover:bg-accent/60 hover:text-foreground"
-              )}
-            >
-              {link.label}
-            </NextLink>
-          ))}
-        </div>
-      </div>
+      <NextLink
+        className="group flex items-center gap-2.5 transition-opacity hover:opacity-90"
+        href="/"
+      >
+        <Image
+          src="/images/logo.png"
+          width={36}
+          height={36}
+          alt="logo"
+          className="transition-transform duration-300 group-hover:scale-105"
+        />
+        <span className="hidden font-mono text-lg font-bold tracking-tight sm:inline">
+          DEV-IN
+          <span className="text-brand">.TW</span>
+        </span>
+      </NextLink>
       <div className="flex items-center gap-5">
         <div className="flex items-center gap-3">
           <a
@@ -134,7 +103,7 @@ export default function NavbarC() {
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={() => router.push("/domain")}>
-                  子網域設定
+                  我的子網域
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => router.push("/domain/dns")}>
                   DNS 設定
