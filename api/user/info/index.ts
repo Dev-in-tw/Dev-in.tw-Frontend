@@ -1,5 +1,4 @@
-import { AxiosInstance } from "axios";
-
+import type { AxiosInstance } from "axios";
 
 export class UserInfoApi {
   // eslint-disable-next-line no-unused-vars

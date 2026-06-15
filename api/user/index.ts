@@ -1,4 +1,4 @@
-import { AxiosInstance } from "axios";
+import type { AxiosInstance } from "axios";
 import { UserInfoApi } from "@/api/user/info";
 
 export class UserApi {

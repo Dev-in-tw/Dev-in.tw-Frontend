@@ -1,11 +1,10 @@
 // type
-import { userType } from "@/types/userType";
 
 // module
-import { useState, useEffect } from "react";
-
+import { useEffect, useState } from "react";
 //api
 import apiClient from "@/api";
+import type { userType } from "@/types/userType";
 
 export function useUserAccount() {
   const [isLoading, setIsLoading] = useState(true);

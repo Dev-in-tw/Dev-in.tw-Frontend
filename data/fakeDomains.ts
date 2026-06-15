@@ -28,5 +28,5 @@ export const FakeRelatedDomains = [
   "lllll",
   "lalallalala",
   "lllll",
-  "lalallalala",
+  "lalallalala"
 ];
