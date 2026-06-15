@@ -3,7 +3,7 @@ import { Providers } from "@/app/provider";
 import NavbarC from "@/components/Global/Navbar";
 
 // style
-import "@/styles/globals.scss";
+import "@/styles/globals.css";
 
 // type
 import type { Metadata, Viewport } from "next";
@@ -41,7 +41,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL as string),
+  metadataBase: new URL(process.env.APP_URL as string),
   title: "Dev-in.tw",
   description:
     "Dev-in.tw 是一個由 HACO 和 OnCloud 聯合構思的專案，打造一個給予台灣的開發者建立個人子網域的平台，提供設定子網域及簡易 DNS 記錄等功能。",

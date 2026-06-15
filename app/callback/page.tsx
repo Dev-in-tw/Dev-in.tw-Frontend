@@ -1,26 +1,36 @@
 "use client";
 
-// component
-import { Spinner } from "@nextui-org/react";
-
 // module
-import { useEffect } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useEffect } from "react";
 import { useLocalStorage } from "usehooks-ts";
 
-export default function Callback() {
+// component
+import { Spinner } from "@/components/ui/spinner";
+
+function CallbackContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const _token = searchParams.get("token");
-  const [token, setToken] = useLocalStorage<any>("token", null);
+  const [token, setToken] = useLocalStorage<string | null>("token", null);
 
   useEffect(() => {
     setToken(_token);
-  }, [_token, setToken, token]);
+  }, [_token, setToken]);
 
-  if (token !== null && token !== undefined) {
-    router.push("/");
-  }
+  useEffect(() => {
+    if (token !== null && token !== undefined) {
+      router.push("/");
+    }
+  }, [token, router]);
 
-  return <Spinner size="lg" />;
+  return <Spinner className="size-10" />;
+}
+
+export default function Callback() {
+  return (
+    <Suspense fallback={<Spinner className="size-10" />}>
+      <CallbackContent />
+    </Suspense>
+  );
 }
