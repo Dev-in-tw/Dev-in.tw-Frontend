@@ -1,15 +1,16 @@
 // type
-import { type NextRequest } from "next/server";
+import type { NextRequest } from "next/server";
 
 // api
 import apiClient from "@/api";
 
-
 export async function GET(
   request: NextRequest,
-  { params }: { params: { service: string } },
+  { params }: { params: Promise<{ service: string }> }
 ) {
-  if (params.service === "github") {
+  const { service } = await params;
+
+  if (service === "github") {
     const searchParams = request.nextUrl.searchParams;
     const code = searchParams.get("code");
 
@@ -19,6 +20,8 @@ export async function GET(
 
     const data = await apiClient.auth.github.post(code);
 
-    return Response.redirect(process.env.NEXT_PUBLIC_APP_URL + "/callback?token=" + data.token);
+    return Response.redirect(
+      `${process.env.APP_URL}/callback?token=${data.token}`
+    );
   }
 }
